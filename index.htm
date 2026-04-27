@@ -8,7 +8,6 @@
     <style>
         :root {
             --primary-orange: #ff6b00;
-            --fixed-front-art: url('https://blogger.googleusercontent.com/img/a/AVvXsEjLLyZ708LW-OuIZB6E1XtTjXRmTjNYhyFwDwetpY5i8QvtiJMFReZ2PvJzAwUPFcfonQNr3R2p00eWfDrgLcwSoSLeDkLelQlOwV7yPcQbxrNPOQG0Osr8l9ya3urHEcy6M6RtQgun7TzY1qwL5dir8mTMqxVyXw2E7LtcZscjrY1yDdxsWShSaVAfEYQ=s1350');
             --default-bg: url('https://blogger.googleusercontent.com/img/a/AVvXsEjLLyZ708LW-OuIZB6E1XtTjXRmTjNYhyFwDwetpY5i8QvtiJMFReZ2PvJzAwUPFcfonQNr3R2p00eWfDrgLcwSoSLeDkLelQlOwV7yPcQbxrNPOQG0Osr8l9ya3urHEcy6M6RtQgun7TzY1qwL5dir8mTMqxVyXw2E7LtcZscjrY1yDdxsWShSaVAfEYQ=s1350');
         }
 
@@ -22,15 +21,15 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; background-size: cover; background-position: center;
             background-image: var(--default-bg);
-            filter: blur(5px) brightness(1.0);
-            transition: background-image 2s ease-in-out;
+            filter: blur(40px) brightness(0.6); /* Desenfoque más profundo para estilo moderno */
+            transition: background-image 1.2s ease-in-out;
             transform: scale(1.1);
         }
 
         .gradient-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 2;
-            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 100%);
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
         }
 
         .main-view {
@@ -41,69 +40,63 @@
             padding: 15px; box-sizing: border-box;
         }
 
-        /* LOGO GRANDE EN MÓVILES */
         .art-box-fixed {
-            width: 80vw; height: 80vw; /* Ocupa casi todo el ancho en móviles */
-            max-width: 420px; max-height: 420px; /* Tamaño máximo para tablets/PC */
-            margin-bottom: 25px;
-            border-radius: 45px; overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,1);
-            border: 2px solid rgba(255,107,0,0.4);
-            background-image: var(--fixed-front-art);
+            width: 80vw; height: 80vw;
+            max-width: 400px; max-height: 400px;
+            margin-bottom: 30px;
+            border-radius: 24px; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            background-image: var(--default-bg);
             background-size: cover; background-position: center;
-            transition: transform 0.1s ease-out;
+            /* Transición suave para cuando cambia la carátula */
+            transition: transform 0.1s ease-out, background-image 0.8s ease-in-out; 
         }
 
-        /* BARRA DE INFORMACIÓN COMPACTA */
         .metadata-bar {
-            width: 100%; max-width: 480px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            padding: 15px 20px; border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            width: 100%; max-width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            padding: 16px 24px; border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex; align-items: center; gap: 15px;
-            box-sizing: border-box;
         }
 
-        .info { flex: 1; min-width: 0; overflow: hidden; }
+        .info { flex: 1; min-width: 0; }
 
         .live-status {
-            color: var(--primary-orange); font-size: 8px;
-            font-weight: 900; letter-spacing: 2px;
-            text-transform: uppercase; margin-bottom: 3px;
-            display: flex; align-items: center; gap: 5px;
+            color: var(--primary-orange); font-size: 9px;
+            font-weight: 900; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 4px;
+            display: flex; align-items: center; gap: 6px;
         }
 
-        .dot { width: 7px; height: 7px; background: var(--primary-orange); border-radius: 50%; animation: pulse-dot 1.5s infinite; }
+        .dot { width: 8px; height: 8px; background: var(--primary-orange); border-radius: 50%; animation: pulse-dot 1.5s infinite; }
 
-        /* SCROLL DINÁMICO */
         .scroll-wrapper { overflow: hidden; white-space: nowrap; width: 100%; }
-        .scroll-content { display: inline-block; white-space: nowrap; }
-        .is-scrolling { animation: marquee 12s linear infinite; padding-left: 100%; }
+        .scroll-content { display: inline-block; }
+        .is-scrolling { animation: marquee 10s linear infinite; padding-left: 100%; }
 
-        #songTitle { font-size: clamp(1.1rem, 5vw, 1.3rem); font-weight: 800; margin: 0; color: #fff; }
-        #songArtist { font-size: clamp(0.9rem, 4vw, 1rem); opacity: 0.6; margin: 1px 0 0; }
+        #songTitle { font-size: 1.2rem; font-weight: 800; margin: 0; color: #fff; }
+        #songArtist { font-size: 0.95rem; opacity: 0.7; margin: 2px 0 0; }
 
         .play-btn {
-            background: var(--primary-orange); border: none;
-            width: 60px; height: 60px; border-radius: 50%;
+            background: #fff; border: none;
+            width: 55px; height: 55px; border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s active; flex-shrink: 0;
-            box-shadow: 0 10px 20px rgba(255,107,0,0.3);
+            transition: transform 0.2s ease; flex-shrink: 0;
         }
-        .play-btn svg { width: 26px; fill: black; }
+        .play-btn svg { width: 24px; fill: #000; }
         .play-btn:active { transform: scale(0.9); }
 
-        footer { position: fixed; bottom: 0; width: 100%; padding: 12px 0; text-align: center; z-index: 10; }
-        .copyright { font-size: 10px; color: rgba(255, 255, 255, 0.3); letter-spacing: 1px; }
+        footer { position: fixed; bottom: 20px; width: 100%; text-align: center; z-index: 10; }
+        .copyright { font-size: 10px; color: rgba(255, 255, 255, 0.4); font-weight: 700; }
 
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        @keyframes pulse-dot { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.3; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulse-dot { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
 
-        /* Ajuste para pantallas muy pequeñas (iPhone SE, etc) */
         @media (max-height: 650px) {
-            .art-box-fixed { width: 75vw; height: 75vw; margin-bottom: 15px; }
-            .metadata-bar { padding: 12px 18px; }
+            .art-box-fixed { width: 65vw; height: 65vw; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -140,12 +133,13 @@
     </div>
 
     <footer>
-        <div class="copyright">&copy; 2026 <b>AC MEDIA</b>.</div>
+        <div class="copyright">© 2026 AC MEDIA</div>
     </footer>
 
-    <audio id="radioStream" crossorigin="anonymous" src="https://a7.asurahosting.com:6640/radio.mp3"></audio>
+    <audio id="radioStream" crossorigin="anonymous"></audio>
 
     <script>
+        const STREAM_URL = 'https://a7.asurahosting.com:6640/radio.mp3';
         const API_AZURA = 'https://a7.asurahosting.com/api/nowplaying_static/parranda_vallenata_web_.json';
         const DEFAULT_BG = 'https://blogger.googleusercontent.com/img/a/AVvXsEjLLyZ708LW-OuIZB6E1XtTjXRmTjNYhyFwDwetpY5i8QvtiJMFReZ2PvJzAwUPFcfonQNr3R2p00eWfDrgLcwSoSLeDkLelQlOwV7yPcQbxrNPOQG0Osr8l9ya3urHEcy6M6RtQgun7TzY1qwL5dir8mTMqxVyXw2E7LtcZscjrY1yDdxsWShSaVAfEYQ=s1350';
         
@@ -158,6 +152,7 @@
 
         let currentTrackId = "";
 
+        // Función para verificar si el texto debe hacer scroll
         function checkScroll() {
             const elements = [
                 { wrapper: 'titleWrapper', content: 'titleContent' },
@@ -166,7 +161,7 @@
             elements.forEach(el => {
                 const wrap = document.getElementById(el.wrapper);
                 const cont = document.getElementById(el.content);
-                if (cont.scrollWidth > (wrap.offsetWidth + 2)) {
+                if (cont.scrollWidth > wrap.offsetWidth) {
                     cont.classList.add('is-scrolling');
                 } else {
                     cont.classList.remove('is-scrolling');
@@ -191,22 +186,40 @@
                 const data = await response.json();
                 const np = Array.isArray(data) ? data[0].now_playing : data.now_playing;
                 
-                if (currentTrackId !== (np.song.title + np.song.artist)) {
-                    currentTrackId = np.song.title + np.song.artist;
+                const trackKey = np.song.title + np.song.artist;
+                if (currentTrackId !== trackKey) {
+                    currentTrackId = trackKey;
                     document.getElementById('songTitle').textContent = np.song.title;
                     document.getElementById('songArtist').textContent = np.song.artist;
 
                     const art = await getiTunesArt(`${np.song.artist} ${np.song.title}`);
-                    bgBlur.style.backgroundImage = `url('${art || DEFAULT_BG}')`;
-                    setTimeout(checkScroll, 800);
+                    const finalArt = art || DEFAULT_BG;
+                    
+                    bgBlur.style.backgroundImage = `url('${finalArt}')`;
+                    artVisual.style.backgroundImage = `url('${finalArt}')`;
+                    
+                    setTimeout(checkScroll, 500);
                 }
             } catch (error) {}
         }
 
-        window.addEventListener('resize', checkScroll);
-        setInterval(fetchMetadata, 10000);
-        fetchMetadata();
+        // --- Lógica del Reproductor ---
+        playBtn.addEventListener('click', () => {
+            initVisualizer();
+            if (audio.paused) {
+                // Forzamos carga del stream con timestamp para evitar caché y delay
+                audio.src = STREAM_URL + "?t=" + Date.now();
+                audio.play();
+                playIcon.style.display = 'none'; pauseIcon.style.display = 'block';
+            } else {
+                audio.pause();
+                audio.src = ""; // Liberamos el buffer
+                playIcon.style.display = 'block'; pauseIcon.style.display = 'none';
+                artVisual.style.transform = `scale(1)`;
+            }
+        });
 
+        // --- Visualizador de Audio (Efecto Pulso) ---
         let audioCtx, analyser, dataArray;
         function initVisualizer() {
             if (!audioCtx) {
@@ -217,33 +230,26 @@
                 analyser.connect(audioCtx.destination);
                 analyser.fftSize = 64;
                 dataArray = new Uint8Array(analyser.frequencyBinCount);
-                loop();
+                renderFrame();
             }
         }
 
-        function loop() {
-            requestAnimationFrame(loop);
+        function renderFrame() {
+            requestAnimationFrame(renderFrame);
             if (!audio.paused) {
                 analyser.getByteFrequencyData(dataArray);
-                let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-                let scale = 1 + (volume / 255) * 0.12; 
+                let volume = 0;
+                for(let i=0; i<dataArray.length; i++) volume += dataArray[i];
+                volume = volume / dataArray.length;
+                
+                let scale = 1 + (volume / 255) * 0.15; 
                 artVisual.style.transform = `scale(${scale})`;
             }
         }
 
-        playBtn.addEventListener('click', () => {
-            initVisualizer();
-            if (audio.paused) {
-                audio.play();
-                playIcon.style.display = 'none'; pauseIcon.style.display = 'block';
-            } else {
-                audio.pause();
-                playIcon.style.display = 'block'; pauseIcon.style.display = 'none';
-                artVisual.style.transform = `scale(1)`;
-            }
-        });
+        window.addEventListener('resize', checkScroll);
+        setInterval(fetchMetadata, 10000);
+        fetchMetadata();
     </script>
 </body>
-
 </html>
-
